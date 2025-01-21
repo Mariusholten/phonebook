@@ -15,8 +15,7 @@ bool checkPhoneNumber(char *p, struct contactNode *cn, int idx){
     if(!headContact){
         return false;
     }
-    if(strcmp(p, cn->data->phoneNumber) == 0) {
-        printf("P PhoneNumber: %s, CN PhoneNumber: %s\n", p, cn->data->phoneNumber);
+    if(strcmp(p, cn->data->phoneNumber) == 0 && cn->data->phoneNumber != NULL) {
         return true;
     }
     
@@ -32,9 +31,16 @@ bool checkPhoneNumber(char *p, struct contactNode *cn, int idx){
 // Add contact to last index of list
 void addContact(struct contact contact){
 
-    printf("PhoneNumber: %s\n", contact.phoneNumber);
     if(!checkPhoneNumber(contact.phoneNumber, headContact, length)){
         struct contactNode *newContactNode = (struct contactNode *)malloc(sizeof(struct contactNode));
+
+        newContactNode->data = (struct contact *)malloc(sizeof(struct contact));
+        newContactNode->data->name = strdup(contact.name);
+        newContactNode->data->streetName = strdup(contact.streetName);
+        newContactNode->data->city = strdup(contact.city);
+        newContactNode->data->phoneNumber = strdup(contact.phoneNumber);
+        newContactNode->data->streetNumber = contact.streetNumber;
+        newContactNode->data->postalCode = contact.postalCode;
     
         // Set new contact as head if list is empty
         if(!headContact && !tailContact){
@@ -46,9 +52,6 @@ void addContact(struct contact contact){
         newContactNode->previousContact = tailContact;
         newContactNode->previousContact->nextContact = newContactNode;
         tailContact = newContactNode;
-
-        newContactNode->data = (struct contact *)malloc(sizeof(struct contact));
-        newContactNode->data = &contact;
 
         length++;
     }
@@ -64,6 +67,7 @@ void removeContact(int index){
             free(headContact->data);
             free(headContact);
             headContact = NULL;
+            length--;
         }
         else if (index == 0 && length > 1){
             struct contactNode *newHead = headContact->nextContact;
@@ -72,15 +76,16 @@ void removeContact(int index){
             free(headContact->data);
             free(headContact);
             headContact = newHead;
+            length--;
         }
         else if(index == length-1){
             popContact();
         }
         else {
             removeContactRecursive(headContact, index);
+            length--;
         }
 
-        length--;
     }
     else {
         printf("The list is empty...\n");
@@ -108,14 +113,16 @@ void popContact(){
         free(headContact->data);
         free(headContact);
         headContact = NULL;
+        length--;
     }
-    if(length > 1){
+    else if(length > 1){
         struct contactNode *newTail = tailContact->nextContact;
         tailContact->nextContact->previousContact = tailContact->previousContact;
         tailContact->previousContact->nextContact = tailContact->nextContact;
         free(tailContact->data);
         free(tailContact);
         tailContact = newTail;
+        length--;
     }
     else {
         printf("The list is empty...\n");
