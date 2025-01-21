@@ -5,8 +5,7 @@
 
 int main (){
     struct contact c1;
-    c1.firstName = "Marius";
-    c1.lastName = "Holten";
+    c1.name = "Marius";
     c1.phoneNumber = "12345678";
     c1.streetName = "New Street";
     c1.streetNumber = 2;
@@ -14,8 +13,7 @@ int main (){
     c1.city = "Oslo";
 
     struct contact c2;
-    c2.firstName = "Ina";
-    c2.lastName = "Hagen";
+    c2.name = "Ina";
     c2.phoneNumber = "87654321";
     c2.streetName = "New Street";
     c2.streetNumber = 2;
@@ -23,8 +21,7 @@ int main (){
     c2.city = "Oslo";
 
     struct contact c3;
-    c3.firstName = "Løk";
-    c3.lastName = "Snusk";
+    c3.name = "Løk";
     c3.phoneNumber = "99999999";
     c3.streetName = "New Street";
     c3.streetNumber = 2;
@@ -32,8 +29,7 @@ int main (){
     c3.city = "Oslo";
 
     struct contact c4;
-    c4.firstName = "Dasspapir";
-    c4.lastName = "Piss";
+    c4.name = "Dasspapir";
     c4.phoneNumber = "11111111";
     c4.streetName = "Old Street";
     c4.streetNumber = 1;

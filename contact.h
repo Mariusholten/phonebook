@@ -1,7 +1,6 @@
 // Define a contact structure
 struct contact{
-    char *firstName;
-    char *lastName;
+    char *name;
     char *streetName;
     int streetNumber;
     int postalCode;
@@ -26,3 +25,15 @@ struct contact getFirstContact();
 struct contact getLastContact();
 
 int listLenght();
+
+void changeName();
+
+void changeStreetName();
+
+void changeStreetNumber();
+
+void changePostalCode();
+
+void changeCity();
+
+void changePhoneNumber();
