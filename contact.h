@@ -1,11 +1,15 @@
 // Define a contact structure
+
+#define MAX_SIZE 64
+#define MAX_PHONE_NUMBER_LENGTH 16
+
 struct contact{
-    char *name;
-    char *streetName;
+    char name[MAX_SIZE];
+    char streetName[MAX_SIZE];
     int streetNumber;
     int postalCode;
-    char *city;
-    char *phoneNumber;
+    char city[MAX_SIZE];
+    char phoneNumber[MAX_PHONE_NUMBER_LENGTH];
 };
 
 struct contactNode{
@@ -26,14 +30,18 @@ struct contact getLastContact();
 
 int listLenght();
 
-void changeName();
+void setName(struct contact* cn, char *newName);
 
-void changeStreetName();
+void setStreetName(struct contact* cn, char *newStreetName);
 
-void changeStreetNumber();
+void setStreetNumber(struct contact* cn, int newStreetNumber);
 
-void changePostalCode();
+void setPostalCode(struct contact* cn, int newPostalCode);
 
-void changeCity();
+void setCity(struct contact* cn, char *newCity);
 
-void changePhoneNumber();
+void setPhoneNumber(struct contact* cn, char *newPhoneNumber);
+
+void removeContactList();
+
+void printContact(struct contact cn);
