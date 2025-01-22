@@ -27,6 +27,7 @@ bool checkPhoneNumber(char *p, struct contactNode *cn, int idx){
 }
 
 // Add contact to last index of list
+// All varaibles needs to be initialized
 void addContact(struct contact contact){
 
     if(!checkPhoneNumber(contact.phoneNumber, headContact, length)){
@@ -35,28 +36,20 @@ void addContact(struct contact contact){
         newContactNode->data = (struct contact *)malloc(sizeof(struct contact));
         *newContactNode->data = contact;
 
-        if(contact.name[0] == '\0' || contact.phoneNumber[0] == '\0'){
-            printf("Need name or phone number!\n");
-            free(newContactNode->data);
-            free(newContactNode);
-            removeContactList();
-            exit(1);
-        }
-        if(contact.streetName[0] == '\0')setStreetName(newContactNode->data, "empty");
-        if(contact.city[0] == '\0')setCity(newContactNode->data, "empty");
-        if(!contact.streetNumber)setStreetNumber(newContactNode->data, 0);
-        if(!contact.postalCode)setPostalCode(newContactNode->data, 0);
-
-        // Set new contact as head if list is empty
+        // Set new contact as head and tail if list is empty
         if(!headContact && !tailContact){
             headContact = newContactNode;
             tailContact = newContactNode;
+            newContactNode->nextContact = newContactNode;
+            newContactNode->previousContact = newContactNode;
         }
-
-        newContactNode->nextContact = headContact;
-        newContactNode->previousContact = tailContact;
-        newContactNode->previousContact->nextContact = newContactNode;
-        tailContact = newContactNode;
+        else {
+            tailContact->nextContact = newContactNode;
+            newContactNode->previousContact = tailContact;
+            newContactNode->nextContact = headContact;
+            headContact->previousContact = newContactNode;
+            tailContact = newContactNode;
+        }
 
         length++;
     }
@@ -186,6 +179,7 @@ void setCity(struct contact* cn, char *newCity){
     }
     else {
         strncpy(cn->city, newCity, MAX_SIZE - 1);
+        cn->streetName[MAX_SIZE - 1] = '\0';
     }
 }
 
@@ -210,12 +204,12 @@ void removeContactList(){
 
 
 void printContact(struct contact cn){
-    printf("=================\n");
+    printf("=========================\n");
     printf("Name: %s\n", cn.name);
     printf("StreetName: %s\n", cn.streetName);
     printf("StreetNumber: %d\n", cn.streetNumber);
     printf("PostalCode: %d\n", cn.postalCode);
     printf("City: %s\n", cn.city);
     printf("PhoneNumber: %s\n", cn.phoneNumber);
-    printf("=================\n");
+    printf("=========================\n");
 }

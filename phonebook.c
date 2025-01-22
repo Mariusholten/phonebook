@@ -6,22 +6,21 @@
 int main (){
     struct contact c1;
     setName(&c1, "Potet");
-    setPhoneNumber(&c1, "123435");
+    setStreetName(&c1, "Old Street");
+    setStreetNumber(&c1, 2);
     setPostalCode(&c1, 1234);
-
-    struct contact c2;
-    setName(&c2, "Snake");
-    //setPhoneNumber(&c2, "11223435");
-    setPostalCode(&c2, 142342344);
+    setCity(&c1, "Oslo");
+    setPhoneNumber(&c1, "1231521");
     
     addContact(c1);
-    addContact(c2);
 
     printf("%d\n", listLenght());
 
     popContact();
 
     printf("%d\n", listLenght());
+
+    printContact(c1);
 
     return 0;
 }
